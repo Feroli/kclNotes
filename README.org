@@ -5,6 +5,6 @@
 These are my notes of the computer science course at kcl. If you want to use them you are free to do so but I am not liable for how correct they are. The files of interest are the html files as they contained the exported version of my notes, else the .org file which can be viewed nicely on Github. Look!
 
 	- [[file:PDL/haskell.org][org]]
-	- [[file:PDL/haskell.html][html]]
+	- [[file:PDL/images/htmlSample.html][html]]
 
 If you like what you see, then I recommend that you visit [[http://spacemacs.org/][spacemacs]] as everything was here created using Emacs, and then visit[[https://github.com/Feroli/dotfiles][ my dotfiles]] for my personal configurations.
