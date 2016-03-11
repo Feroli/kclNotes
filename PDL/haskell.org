@@ -1,0 +1,47 @@
+#+TITLE: Haskell
+#+SETUPFILE: ../readTheOrg/theme-readtheorg.setup
+#+STARTUP: entitiespretty
+
+* Installation
+
+
+Haskell can be installed through [[http://brew.sh/][Homebrew]] pretty easily.
+\\
+#+BEGIN_SRC sh
+brew install ghc cabal-install
+#+END_SRC
+
+Extra steps that I needed to perform post install
+
+#+BEGIN_SRC sh
+cabal update
+cabal install ghc-mod
+#+END_SRC
+
+[[http://stackoverflow.com/questions/15709129/installing-haskell-packages-on-mac][source]]
+
+* Using Haskell
+
+Haskell can be used by running the command *GHCI* which is GHC's interactive environment where Haskell expression can be interactively evaluated and programs can be interpreted.
+
+When declaring variables on the terminal you must declare each variable/function with let.
+
+\\
+For example,
+
+#+BEGIN_SRC haskell
+let var = 2
+let function x = x * 2 -- where function is the name and x its parameter
+#+END_SRC
+
+When writing on a file the extension must be .hs and there you can't use the let keyword. To load a file onto ghci you use the :load file.hs command
+
+#+BEGIN_SRC haskell
+:load file.hs
+var = 2
+function x = x * 2
+#+END_SRC
+
+* Haskell tutorial
+
+I recommend that you read through this [[http://learnyouahaskell.com/][online tutorial]]

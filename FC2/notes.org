@@ -1,0 +1,61 @@
+#+TITLE: FC2 notes
+#+SETUPFILE: ../readTheOrg/theme-readtheorg.setup
+#+STARTUP: entitiespretty
+#+STARTUP: indent
+
+\\
+
+* Automata, Computability, And Complexity
+
+
+** Complexity
+
+Distinguishes between problems that are easy and those that are hard to solve.
+
+*confronting a problem that appears to be computationally hard*
+
+  - Understand which aspect of the problem is at the root of the difficulty
+  - Settle for less than a perfect solution to the problem
+  - some problems are hard only in the worst case  scenario
+Therefore it may be satisfiable for a procedure to be occasionally slow.
+
+
+** Computability theory
+
+Distinguishes between problems that are solvable and those that are not.
+
+** Automata theory
+
+Automata theory deals with the definitions and properties of mathematical models of computation. For example, finite automaton used in text-processing, compilers and hardware design.
+
+* Mathematical Notations and Terminology
+
+** Sets
+
+A set is a group of objects represented as a unit.
+
+\\
+A set containing some rule
+
+
+*{n| n = m^2 m \in N}*
+
+\\
+The set of all perfect squares.
+
+** Reflexive, Symmetric, Transitive
+
+*Reflexive* if for every x, xRx
+*Symmetric* if for every x and y, xRy, yRx
+*Transitive* if for every x, y and z, xRy, yRz implies xRz
+* Finite Automata
+
+A computational model.
+
+
+|----------+---------+-------+--------+--------|
+|          | Neither | Front | Rear   | Both   |
+|----------+---------+-------+--------+--------|
+| *Closed* | Closed  | Open  | Closed | Closed |
+| *Open*   | Closes  | Open  | Open   | Open   |
+|----------+---------+-------+--------+--------|

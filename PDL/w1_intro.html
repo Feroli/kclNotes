@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-03-11 Fri 22:41 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Introduction</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Fernando Ania" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+<link rel="stylesheet" type="text/css" href="../readTheOrg/css/readtheorg.css" />x
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Introduction</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. Programming Languages and Software engineering</a></li>
+<li><a href="#orgheadline6">2. Programming Paradigms</a>
+<ul>
+<li><a href="#orgheadline2">2.1. Imperative Languages</a></li>
+<li><a href="#orgheadline3">2.2. Functional Languages</a></li>
+<li><a href="#orgheadline4">2.3. Logic Languages</a></li>
+<li><a href="#orgheadline5">2.4. Object Oriented</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline10">3. Definition of a programming Language</a>
+<ul>
+<li><a href="#orgheadline7">3.1. Syntax</a></li>
+<li><a href="#orgheadline8">3.2. Semantics</a></li>
+<li><a href="#orgheadline9">3.3. Implementation</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline11">4. Computer Architecture</a></li>
+<li><a href="#orgheadline15">5. Implementing a programming language</a>
+<ul>
+<li><a href="#orgheadline12">5.1. Compiling</a></li>
+<li><a href="#orgheadline13">5.2. Interpreting</a></li>
+<li><a href="#orgheadline14">5.3. Hybrid Method</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline18">6. Syntax</a>
+<ul>
+<li><a href="#orgheadline16">6.1. Concrete Syntax</a></li>
+<li><a href="#orgheadline17">6.2. Abstract Syntax</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline25">7. Semantics</a>
+<ul>
+<li><a href="#orgheadline19">7.1. Static Semantics: Typing</a></li>
+<li><a href="#orgheadline20">7.2. Dynamic Semantics: or just Semantics</a></li>
+<li><a href="#orgheadline24">7.3. Style of Semantics</a>
+<ul>
+<li><a href="#orgheadline21">7.3.1. Denotational Semantics</a></li>
+<li><a href="#orgheadline22">7.3.2. Axiomatic Semantics</a></li>
+<li><a href="#orgheadline23">7.3.3. Operational Semantics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline26">8. Operational Transition Semantics Systems</a></li>
+<li><a href="#orgheadline27">9. Abstract Machines</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Programming Languages and Software engineering</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Programming languages are used in several phases in the software development process: in the implementation phases but also in the desing phase (decomposition into modules)
+</p>
+
+<p>
+A desing method is a guideline for producing a desing (e.g.top-down, object-oriented design).
+</p>
+
+<ul class="org-ul">
+<li>Older languages such as Fortran do no support any specific design method</li>
+<li>More modern languages were designed to support a specific design method;
+<ul class="org-ul">
+<li>Pascal supports top-down programming development and structural programming</li>
+<li>Haskell supports functional programming</li>
+<li>Java supports object-oriented design</li>
+</ul></li>
+</ul>
+
+<p>
+<b>If the design is not compatible with the language the programming effort increases. When they are compatible, the desing abstractions can easily be mapped into program components.</b>
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline6" class="outline-2">
+<h2 id="orgheadline6"><span class="section-number-2">2</span> Programming Paradigms</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+<i>A programming paradigm language may enforce a particlar style of programming.</i>
+</p>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">2.1</span> Imperative Languages</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Programs are decomposed into computation steps, which may be grouped to form sub-programs (modular programming).
+</p>
+
+<p>
+<b>Fortran, Pascal, C, Python are imperative</b>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">2.2</span> Functional Languages</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Based on the mathematical theory of functions. The focus is in what should be computed, not how it should be computed.
+</p>
+
+<p>
+<b>Haskell, SML, Caml, Clean, F# are functional</b>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">2.3</span> Logic Languages</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+Programs describe a problem rather than finding an algorithmic implementation.
+</p>
+
+<p>
+<b>Prolog</b>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">2.4</span> Object Oriented</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+Emphasise the definition of hierarchies of objects. Object-orientation is a feature that can be added to any of the above paradigms (i.e., there are object-oriented imperative languages, object-oriented functional languages, etc.).
+</p>
+
+<p>
+<b>SmallTalk, Ruby, Java, OCaml are object-oriented</b>
+</p>
+
+<hr  />
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline10" class="outline-2">
+<h2 id="orgheadline10"><span class="section-number-2">3</span> Definition of a programming Language</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">3.1</span> Syntax</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Defines the form of program; how expressions, commands, declarations are built and put together to form a program.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">3.2</span> Semantics</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Gives the meaning of programs; how they behave when they are executed.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">3.3</span> Implementation</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+a software system that can read a program and execute it in a machine, plus a set of tools (editors, debuggers, etc).
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgheadline11" class="outline-2">
+<h2 id="orgheadline11"><span class="section-number-2">4</span> Computer Architecture</h2>
+<div class="outline-text-2" id="text-4">
+<ul class="org-ul">
+<li>Memory</li>
+<li>Register</li>
+<li>Processor (a set of machine instructions)</li>
+</ul>
+
+<p>
+The operating system supplies higher-level promitives than those of the machine language (e.g. input/output operations, file management system, editors). Language implementations are built on top of these.
+</p>
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Computer Architecture</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">user progams</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">language implementations</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">operating system</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">machine</td>
+</tr>
+</tbody>
+</table>
+<hr  />
+</div>
+</div>
+<div id="outline-container-orgheadline15" class="outline-2">
+<h2 id="orgheadline15"><span class="section-number-2">5</span> Implementing a programming language</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12"><span class="section-number-3">5.1</span> Compiling</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Needs to compile program into machine language
+</p>
+
+<p>
+The compiler translates the source language into machine language that can be executed directly on the computer. This method provides fast program execution.
+</p>
+
+<p>
+<b>Main phases of compilation:</b>
+</p>
+
+<ol class="org-ol">
+<li>Lexical Analysis</li>
+<li>Syntax Analysis (Parsing)</li>
+<li>Type and Semantics Analysis</li>
+<li>Machine Code Generation</li>
+</ol>
+
+
+<p>
+The execution of machine code occurs in a process called fetch-execute cycle. Each machine instruction to be executed is moved from the memory, where programs reside, to the processor. The  fetchexecute cycle consists of:
+</p>
+
+<p>
+  • Initialize program counter (in a register of the machine)
+  • Repeat forever:
+    – fetch the instruction pointed by the program counter
+    – increment the program counter
+    – decode and execute the instruction
+When all the instructions in the program have been executed
+the control returns to the operating system (of course, in a
+system where more than one program is running the process
+is more complex).
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13"><span class="section-number-3">5.2</span> Interpreting</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+interprets programs (i.e. same as compiling but slower and better debug errors)
+</p>
+
+<p>
+In this case there is no translation, the program is executed by an interpreter which simulates a machine whose fetchexecute cycle deals with high-level program instructions. The interpreter produces a virtual machine for the language.
+</p>
+
+<ul class="org-ul">
+<li>Advantage: Easy to implement, easy debugging of programs, better error messages.</li>
+<li>Disadvantage: Slow execution.</li>
+</ul>
+
+<p>
+Simpler languages, and prototyping languages, are usually interpreted (e.g. LISP, Unix Shell Scripts).
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14"><span class="section-number-3">5.3</span> Hybrid Method</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+Combination of compilation and interpretation
+</p>
+
+<p>
+Some languages are implemented by translation (compilation)to an intermediate language instead of machine language. This intermediate language is then interpreted.
+</p>
+
+<ul class="org-ul">
+<li>Advantage: Portability.</li>
+</ul>
+<p>
+In this way programs can be executed in any machine that has an interpreter for the intermediate language. E.g. Many functional languages are translated to abstract machine code which is then interpreted. In Java, the intermediate form (bytecode) provides portability to any machine that has a bytecode interpreter
+</p>
+
+
+
+
+<hr  />
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline18" class="outline-2">
+<h2 id="orgheadline18"><span class="section-number-2">6</span> Syntax</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+The syntax is given by:
+</p>
+
+<ul class="org-ul">
+<li><b>an alphabet</b></li>
+</ul>
+<p>
+the set of characters that can be used
+</p>
+<ul class="org-ul">
+<li><b>a set of rules</b></li>
+</ul>
+<p>
+indicating how to form expressions, commands, etc.
+</p>
+</div>
+
+
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16"><span class="section-number-3">6.1</span> Concrete Syntax</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+Describes which chains of characters are well-formed programs
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17"><span class="section-number-3">6.2</span> Abstract Syntax</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+Describes the syntax trees, to which a semantics is associated.
+</p>
+
+
+<hr  />
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline25" class="outline-2">
+<h2 id="orgheadline25"><span class="section-number-2">7</span> Semantics</h2>
+<div class="outline-text-2" id="text-7">
+</div><div id="outline-container-orgheadline19" class="outline-3">
+<h3 id="orgheadline19"><span class="section-number-3">7.1</span> Static Semantics: Typing</h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+The goal is to detect (before the actual execution of the program) programs that are syntactically correct but will give errors during execution.
+  Example: 1 + ’a’
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline20" class="outline-3">
+<h3 id="orgheadline20"><span class="section-number-3">7.2</span> Dynamic Semantics: or just Semantics</h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+Specifies the meaning of programs.
+</p>
+
+<p>
+Informal definitions, often given by English explanations in
+language manuals, are often imprecise and incomplete.
+Formal semantics are important for:
+</p>
+
+<p>
+ • the implementation of the language: the behaviour of each
+construct is specified, providing an abstraction of the execution
+process which is independent of the machine.
+</p>
+
+<p>
+ • programmers: a formal semantics provides tools or techniques
+to reason about programs and prove properties of
+programs.
+</p>
+
+<p>
+ • language designers: a formal semantics allows to detect
+ambiguities in the constructs and suggests improvements
+and new constructs (e.g. influence of the study of the λ-
+calculus in the design of functional languages).
+</p>
+
+<p>
+However, formal semantics descriptions can be complex, so
+usually only a part of the language is formally defined.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline24" class="outline-3">
+<h3 id="orgheadline24"><span class="section-number-3">7.3</span> Style of Semantics</h3>
+<div class="outline-text-3" id="text-7-3">
+<p>
+Operational semantics is very useful for the implementation
+of the language and for proving correctness of compiler optimizations.
+</p>
+
+<p>
+Denotational semantics and axiomatic semantics are useful
+to reason and prove properties of programs.
+</p>
+</div>
+
+
+<div id="outline-container-orgheadline21" class="outline-4">
+<h4 id="orgheadline21"><span class="section-number-4">7.3.1</span> Denotational Semantics</h4>
+<div class="outline-text-4" id="text-7-3-1">
+<p>
+The meaning of expressions
+(and in general, the meaning of the constructs in the language)
+is given in an abstract, mathematical way (using
+a mathematical model for the language). The semantics
+describes the effect of each construct.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline22" class="outline-4">
+<h4 id="orgheadline22"><span class="section-number-4">7.3.2</span> Axiomatic Semantics</h4>
+<div class="outline-text-4" id="text-7-3-2">
+<p>
+Uses axioms and deduction
+rules in a specific logic. Predicates or assertions are given
+before and after each construct, describing the constraints
+on program variables before and after the execution of the
+statement (precondition, postcondition).
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline23" class="outline-4">
+<h4 id="orgheadline23"><span class="section-number-4">7.3.3</span> Operational Semantics</h4>
+<div class="outline-text-4" id="text-7-3-3">
+<p>
+The meaning of each construct
+is given in terms of computation steps. The behaviour
+of the program during execution can be described
+using a transition system (abstract machine, structural
+operational semantics).
+</p>
+
+
+<p>
+<span class="underline"><span class="underline">_</span></span>
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline26" class="outline-2">
+<h2 id="orgheadline26"><span class="section-number-2">8</span> Operational Transition Semantics Systems</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+<b>Definition:</b> <i>A transition system is specified by</i>
+</p>
+
+<ul class="org-ul">
+<li>A set Config of Configurations or states</li>
+<li>A binary realtion → ⊆ Config × Config, called transition relation.</li>
+</ul>
+
+<p>
+<code>c-&gt;c' means that c and c' are related by -&gt;</code>
+</p>
+
+<p>
+A transition system is <i>deterministic</i> if
+</p>
+
+
+<div class="org-center">
+<p>
+<code>for all c, c1, c2 : c-&gt;c1 and c-&gt;c2 implies c1 = c2</code>
+</p>
+</div>
+
+
+
+
+
+<p>
+<b>Notation</b>
+</p>
+
+<p>
+c → c' denotes a transition from c to c' (change of state).
+c →∗c' is the reflexive transitive closure of →. In other words, c →∗c' holds iff there is a sequence of transitions:
+</p>
+
+
+
+<div class="org-center">
+<p>
+<code>c → c1 → . . . → cn = c'
+where n ≥ 0.</code>
+</p>
+</div>
+
+<hr  />
+</div>
+</div>
+<div id="outline-container-orgheadline27" class="outline-2">
+<h2 id="orgheadline27"><span class="section-number-2">9</span> Abstract Machines</h2>
+<div class="outline-text-2" id="text-9">
+<blockquote>
+<p>
+
+</p>
+
+
+
+<p>
+<b>An abstract machine is a transition system that specifies an
+interpreter for a programming language.</b>
+</p>
+</blockquote>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Fernando Ania</p>
+<p class="date">Created: 2016-03-11 Fri 22:41</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

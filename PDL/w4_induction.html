@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-03-11 Fri 23:21 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Induction</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Fernando Ania" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+<link rel="stylesheet" type="text/css" href="../readTheOrg/css/readtheorg.css" />x
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Induction</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. Principle of mathematical induction</a></li>
+<li><a href="#orgheadline4">2. Structual Induction</a>
+<ul>
+<li><a href="#orgheadline2">2.1. Example</a></li>
+<li><a href="#orgheadline3">2.2. Example 2</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline5">3. Application of the Structural Induction Principle</a></li>
+<li><a href="#orgheadline10">4. Inductive Definition</a>
+<ul>
+<li><a href="#orgheadline6">4.1. Example</a></li>
+<li><a href="#orgheadline9">4.2. Example 2</a>
+<ul>
+<li><a href="#orgheadline7">4.2.1. Natural Numbers</a></li>
+<li><a href="#orgheadline8">4.2.2. Evalutation realtion for integer expressions in <i>SIMP</i>:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<br  />
+</p>
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Principle of mathematical induction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+For any property P(n) of natural numbers
+(i.e. n ∈ N = {0, 1, 2, . . .}) to prove ∀n ∈ N .P(n) it is sufficient to show:
+<br  />
+</p>
+<pre class="example">
+- Base: P(0)
+- Induction Step:
+∀n ∈* *N.P**(n) ⇒ P(n + 1)
+</pre>
+<p>
+<br  />
+</p>
+
+<p>
+<b>Example</b>:
+We prove that
+</p>
+
+
+<p>
+x <br  />
+&sum; (2i -1) = n<sup>2</sup> <br  />
+i=1
+</p>
+
+
+<p>
+for all natural numbers n.
+<br  />
+<i>Base</i>:
+  0 = 0<sup>2</sup>
+<br  />
+</p>
+
+
+<p>
+<a href="images/induction.png">induction step</a>
+</p>
+<hr  />
+</div>
+</div>
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4"><span class="section-number-2">2</span> Structual Induction</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+We can adapt the induction principle to the data structure that we want to study, for instance lists. Assume we denote an emput lisy by nil, and a non-empty list by cons(h,l) where h is the head element and l is the tial of the list.
+  To prove that a property P holds for every list, it is sufficient to prove:
+<br  />
+</p>
+<pre class="example">
+- Base: P(nil)
+- Induction Step: P(l) =&gt; P(cons(h,l)) for all h,l.
+</pre>
+<p>
+<br  />
+More genetally, if we are working with finite labelled trees and we want to prove a property P for thos trees, it is sufficient to show:
+<br  />
+</p>
+
+<ul class="org-ul">
+<li>Base: P(l) for all leaf nodes l</li>
+<li>Induction Step: <br  />
+for each tree constructor c (with n &gt;= 1 arguments): <br  />
+&forall; t1, &#x2026;.., tn.P(t1) ^ &#x2026;&#x2026; ^P(tn) =&gt; P(c(t1, &#x2026;, tm))</li>
+</ul>
+<p>
+<br  />
+</p>
+</div>
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">2.1</span> Example</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+To prove that a property P holds for all integer expressions in <b>SIMP</b>:
+<br  />
+</p>
+<ol class="org-ol">
+<li>Base
+<ul class="org-ul">
+<li>Prove P(n) for all n ∈ Z</li>
+<li>Prove P(!l) for all locations l.</li>
+</ul></li>
+
+<li>Induction Step:
+For all integer expressions E, E' and operatos op:
+Prove that P(E) and P(E') implies P(E op E').</li>
+</ol>
+<p>
+<br  />
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">2.2</span> Example 2</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Reason to prove a property
+</p>
+
+<ul class="org-ul">
+<li>Base -&gt; 0</li>
+<li>Induction (how to get to the next number)
+n -&gt; n+1</li>
+</ul>
+<p>
+<br  />
+</p>
+<hr  />
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5"><span class="section-number-2">3</span> Application of the Structural Induction Principle</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+We will prove the following property:
+</p>
+
+<p>
+<i>The semantics of <b>SIMP</b> guarantees that for any integer expression E appearing in a program working on a memory m if E uses locations that are defined in m then the value of E is defined.</i>
+</p>
+
+
+<p>
+In other words:
+For any configuration <code>&lt;E · c, r, m&gt;</code> where <b>c</b> is any arbitrary control stack and <b>r</b> is also arbitrary, there is a configuration
+<code>&lt;c, n · r, m&gt;</code> such that <code>&lt;E · c, r, mi&gt; →∗ &lt;c, n · r, m&gt;</code>.
+<br  />
+Formally, we have to prove <code>∀E.P(E)</code> where <b>P</b> is: <code>∀m.locations(E) ∈ dom(m) ⇒
+∃n.∀c.∀r.&lt;E · c, r, m&gt; →∗ &lt;c, n · r, m&gt;</code>
+<br  />
+This is proved by induction on the structure of <b>E</b>:
+<br  />
+• Base: If E is a number n or !l then the transitions for
+constants and locations prove P(E).
+<br  />
+• Induction Step: Assume P(E1) and P(E2) hold, we have
+to prove P(E1opE2).
+</p>
+
+<pre class="example">
+&lt;(E1opE2) · c, r, m&gt; → &lt;E1 · E2 · op · c, r, m&gt;
+→∗ &lt;E2 · op · c, n1 · r, m&gt; for some n1 by P(E1)
+→∗ &lt;op · c, n2 · n1 · r, m&gt; for some n2 by P(E2)
+→∗ &lt;c, n · r, m&gt; where n = n1 op n2.
+</pre>
+<p>
+<br  />
+</p>
+<hr  />
+</div>
+</div>
+<div id="outline-container-orgheadline10" class="outline-2">
+<h2 id="orgheadline10"><span class="section-number-2">4</span> Inductive Definition</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+In addition to using induction to prove properties, we will use it also to define subsets of a given set T. We will write inductive definitions using axioms (representing the base case) and rules (representing the induction step).
+</p>
+
+
+<p>
+<b>Definition</b>
+  An axiom is an element of T. (an axiom is the base case)
+  A rule is a pair (H, c) where
+</p>
+
+<ul class="org-ul">
+<li>H is a non-empty subset of T, called hypotheses of the rule.</li>
+<li>C is an element of T, called the conclusion of the rule.</li>
+</ul>
+
+<p>
+The subset I of T inductively defined by a collection of axioms <b>A</b> and rules <b>R</b> consists of those <b>t ∈ T</b> such that
+• t ∈ A, or
+• there are t1, . . . , tn ∈ I and a rule (H, c) such that
+  H = {t1, . . . , tn} and t = c.
+<br  />
+To show that an element t of T is in I it is sufficient to show
+that t is an axiom, or that there is a proof:
+</p>
+
+<p>
+<a href="images/axiomProof.png">proof!</a>
+</p>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">4.1</span> Example</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+axiom = 0 &isin; Natural Number
+</p>
+
+<div class="org-center">
+<p>
+  n  &isin; Exp     &lt;- axiom <br  />
+&#x2013;&#x2014;++++++++++++-&#x2014; <br  />
+ n+1 &isin; Exp    &lt;- natural number
+</p>
+</div>
+<p>
+<br  />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">4.2</span> Example 2</h3>
+<div class="outline-text-3" id="text-4-2">
+</div><div id="outline-container-orgheadline7" class="outline-4">
+<h4 id="orgheadline7"><span class="section-number-4">4.2.1</span> Natural Numbers</h4>
+<div class="outline-text-4" id="text-4-2-1">
+<pre class="example">
+     Axiom:   0
+
+     Rule:
+	 n
+	-+--
+	n + 1
+</pre>
+<p>
+<br  />
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline8" class="outline-4">
+<h4 id="orgheadline8"><span class="section-number-4">4.2.2</span> Evalutation realtion for integer expressions in <i>SIMP</i>:</h4>
+<div class="outline-text-4" id="text-4-2-2">
+<p>
+<b>Notation</b>
+</p>
+
+<p>
+<code>(E,m)⇓n</code> maeans the expression <b>E</b> evaluates to n in the state m.
+<br  />
+    <b>Axiom:</b>
+<br  />
+</p>
+<pre class="example">
+(n, m) ⇓ n for all integer numbers n
+(!l, m) ⇓ n if l ∈ dom(m) and m(l) = n
+</pre>
+
+<p>
+<b>Rule</b>
+</p>
+
+<p>
+<a href="images/rule.png">rule</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Fernando Ania</p>
+<p class="date">Created: 2016-03-11 Fri 23:21</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

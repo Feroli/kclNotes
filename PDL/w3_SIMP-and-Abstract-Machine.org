@@ -1,0 +1,98 @@
+#+TITLE: Introduction continued
+#+SETUPFILE: ../readTheOrg/theme-readtheorg.setup
+
+\\
+* Imperative Language
+
+*An abstract machine is a transition system, which specifies an interpreter for the programming language*
+
+*We will use an imperative language*: _SIMP_
+
+
+** Program 
+
+~P ::= C | E | B~
+
+** Commands 
+
+~C ::= skip|l := E |C; C |if B then C else C |while B do C~
+
+** Boolean Expressions
+
+
+~B ::= True | False | E bop E | ~B | B ^ B
+bop ::= > | < | =x~
+
+
+
+* Abstract Syntax Tree
+
+  - The leaf nodes of the tree are labelled by operators of ZuBuLu{skip}
+  - The non leaf nodes are labelled by operators and commands.
+
+*The abstract syntax tree*
+
+#+BEGIN_CENTER
+#+BEGIN_EXAMPLE
+ if-then-else
+    / | \
+   > skip ;
+  / \    / \
+ 5  0 skip :=
+           / \
+           l 0
+#+END_EXAMPLE   
+#+END_CENTER   
+
+*in textual notation*
+
+~if 5 > 0 then skip else (skip; l:=0s)~
+
+
+* Abstract Machine for SIMP
+
+ 1. *A control stack c*
+ 2. *An auxiliaty stack r* (also called results stack)
+ 3. *A memory*, also called store, modelled by a partial function m , mapping each addres to an integer: dom(m) denotes the locations where m is defined.
+
+
+Notation : m[l->n] is the function that associates to each
+l'≠l the value m(l') and to l the value n
+
+#+BEGIN_CENTER
+#+BEGIN_EXAMPLE
+More precisely:
+m[l->n](l)=n
+m[l->n](l')=m(l') if l≠l'
+#+END_EXAMPLE
+#+END_CENTER
+
+
+Therefore m is a function which associates the memory location of l to n and the value of l to n. Assuming that l (the memory address) is not equal to l'
+
+
+* Configurations
+
+/A configuration is a triple: <Control, Results, Memory>/
+
+The formal defintiion fo the stack is given by the grammar:
+
+#+BEGIN_CENTER
+#+BEGIN_EXAMPLE
+          c ::= nil | i · c
+i ::= P | op | ¬ | ∧ | bop | := | if | while
+         r ::= nil | P · r | l · r
+#+END_EXAMPLE
+#+END_CENTER
+
+where P, bop and op are the non-termianls used in the rules defining programs.
+
+** Modeling execution of transition system
+
+#+BEGIN_CENTER
+#+BEGIN_EXAMPLE
+*Inital Configurations* <C · nil, nil, m>
+*Final Configurations* <nil, nil, m>
+#+END_EXAMPLE
+#+END_CENTER
+

@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2016-03-11 Fri 22:41 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Imperative Languages</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Fernando Ania" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+<link rel="stylesheet" type="text/css" href="../readTheOrg/css/readtheorg.css" />x
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Imperative Languages</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline15">1. Description of an imperative language</a>
+<ul>
+<li><a href="#orgheadline14">1.1. Informal</a>
+<ul>
+<li><a href="#orgheadline10">1.1.1. Variables</a></li>
+<li><a href="#orgheadline13">1.1.2. Scope</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline16">2. Assignment</a></li>
+<li><a href="#orgheadline17">3. Control Statements</a></li>
+<li><a href="#orgheadline18">4. Selection Statements</a></li>
+<li><a href="#orgheadline19">5. Multiple selectors:</a></li>
+<li><a href="#orgheadline22">6. Iterative Statements (Loops)</a>
+<ul>
+<li><a href="#orgheadline20">6.1. Counter-controlled loops:</a></li>
+<li><a href="#orgheadline21">6.2. Logically-controlled loops:</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline25">7. Structuring the Program</a>
+<ul>
+<li><a href="#orgheadline23">7.1. Blocks:</a></li>
+<li><a href="#orgheadline24">7.2. Subprogram:</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<br  />
+</p>
+<div id="outline-container-orgheadline15" class="outline-2">
+<h2 id="orgheadline15"><span class="section-number-2">1</span> Description of an imperative language</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14"><span class="section-number-3">1.1</span> Informal</h3>
+<div class="outline-text-3" id="text-1-1">
+<blockquote>
+<p>
+Imperative languages are abstractions of the underlying Von Neumann computer architecture
+</p>
+
+<p>
+One of the main components of the computer is its memory, storing instructions and data. The abstraction in a programming language for memory cell are variables.
+</p>
+</blockquote>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-4">
+<h4 id="orgheadline10"><span class="section-number-4">1.1.1</span> Variables</h4>
+<div class="outline-text-4" id="text-1-1-1">
+</div><ol class="org-ol"><li><a id="orgheadline1"></a><b><i>Name</i></b><br  /><div class="outline-text-5" id="text-1-1-1-1">
+<p>
+Usually a string of characters with some constrains (.e.g maximal length, etc)
+</p>
+
+<p>
+<br  />
+</p>
+</div></li>
+<li><a id="orgheadline2"></a><b><i>Type</i></b><br  /><div class="outline-text-5" id="text-1-1-1-2">
+<p>
+Indicates the range of values that are allowed as well as the operations that are available. Some languages are untyped, other are statically typed (e.g., Java, Haskell, ML) or dynamically typed (e.g., Python, Ruby).
+</p>
+
+<p>
+<br  />
+</p>
+</div></li>
+<li><a id="orgheadline3"></a><b><i>Address</i></b><br  /><div class="outline-text-5" id="text-1-1-1-3">
+<p>
+The memory address to which the variable is associated (also called l-value)
+</p>
+
+<p>
+This association is not simple: the same name may be associated to different addresses in different parts of the program; and in some languages it is possible to associate more than one name to the same address (e.g. variant records in Pascal, EQUIVALENCE statement in Fortran).
+</p>
+
+<p>
+<br  />
+</p>
+</div></li>
+<li><a id="orgheadline4"></a><b><i>Value</i></b><br  /><div class="outline-text-5" id="text-1-1-1-4">
+<p>
+The contents of the memory associated to the variable (also called r-value)
+</p>
+
+<p>
+<br  />
+</p>
+</div></li>
+<li><a id="orgheadline9"></a><b><i>Lifetime</i></b><br  /><div class="outline-text-5" id="text-1-1-1-5">
+<p>
+The time during which the variable is allocated a specific memory location (between <i>allocation</i> and <i>deal-location</i>). We distinguish 4 classes of variables
+</p>
+
+<p>
+<br  />
+</p>
+</div>
+<ol class="org-ol"><li><a id="orgheadline5"></a>Static Variables<br  /><div class="outline-text-6" id="text-1-1-1-5-1">
+<p>
+bound to a memory location before program execution begins and until the end of the execution.
+</p>
+<ul class="org-ul">
+<li><b>Advantage</b>:</li>
+</ul>
+<p>
+efficiency, since all addressing can be resolved at compile time and there is no need of allocation/deallocation at run time.
+</p>
+
+<ul class="org-ul">
+<li><b>Disadvantage</b>:</li>
+</ul>
+<p>
+storage cannot be reused, recursive programs need dynamic variables.
+</p>
+
+<p>
+<br  />
+</p>
+</div></li>
+<li><a id="orgheadline6"></a>Stack dynamic variables:<br  /><div class="outline-text-6" id="text-1-1-1-5-2">
+<p>
+The storage allocated when the declaration of the variable is process at run time. E.g. local variables of recursive procedure.
+</p>
+
+<p>
+<br  />
+</p>
+</div></li>
+<li><a id="orgheadline7"></a>Explicit heap-dynamic variables:<br  /><div class="outline-text-6" id="text-1-1-1-5-3">
+<p>
+Nameless memory cells that are allocated and deallocated by program instructions, using pointers.
+</p>
+
+<p>
+E.g. in C++
+</p>
+
+<div class="org-center">
+<pre class="example">
+int *intnode;
+...
+intnode = new int; /*allocates an int cell*/
+...
+delete intnode; /*deallocates the cell
+to which intnode points*/
+</pre>
+</div>
+<p>
+E.g. in Java objects are explicit heap dynamic, and
+are accessed through reference variables, but there is
+no way to destroy them explicitly: an implicit garbage
+collection is used.
+</p>
+
+<p>
+<br  />
+</p>
+</div></li>
+<li><a id="orgheadline8"></a>Implicit heap-dynamic variables<br  /><div class="outline-text-6" id="text-1-1-1-5-4">
+<p>
+are bound to storage only when they are assigned values. E.g. strings
+and arrays in Perl and JavaScript.
+<br  />
+</p>
+<ul class="org-ul">
+<li><b>Advantage</b>: flexibility.</li>
+<li><b>Disadvantage</b>: difficult error detection.</li>
+</ul>
+
+<p>
+<br  />
+</p>
+</div></li></ol></li></ol>
+</div>
+<div id="outline-container-orgheadline13" class="outline-4">
+<h4 id="orgheadline13"><span class="section-number-4">1.1.2</span> Scope</h4>
+<div class="outline-text-4" id="text-1-1-2">
+<p>
+The range of instructions in which the variable is visible (can be used). Local variables are those declared in the block of program that is executed. The variables that are visible but are not local are <i>global</i>.
+</p>
+
+<p>
+Some languages have static scoping whereas as other have dynamic scoping.
+</p>
+
+<p>
+<br  />
+</p>
+</div>
+<ol class="org-ol"><li><a id="orgheadline11"></a>Static Scope<br  /><div class="outline-text-5" id="text-1-1-2-1">
+<p>
+Can be determined before the execution of the program (at compile time). When a variables is referenced, the compiler looks for its declaration in the same block and if there is no declaration then looks in the parent block, etc. If no declaration is found then the compiler detects an error.
+</p>
+
+<p>
+E.g. in Pascal
+</p>
+
+
+<pre class="example">
+program main;
+var x : real;
+procedure P1;
+var x : integer; local variable
+begin
+... x ...
+end;
+procedure P2;
+begin
+... x ... global variable
+end;
+begin main
+... x ... global variable
+end.
+</pre>
+
+<p>
+<br  />
+</p>
+</div></li>
+<li><a id="orgheadline12"></a>Dynamic Scope<br  /><div class="outline-text-5" id="text-1-1-2-2">
+<p>
+depends on the calling sequence of subprograms instead of their declaration. In the previous example, with dynamic scope, the reference to x in P2 may refer to the variable in P1 or in main depending on who called P2.
+<br  />
+<b>Problems</b>:
+</p>
+<ul class="org-ul">
+<li>it is not possible to do static type-checking,</li>
+<li>programs are very difficult to understand.</li>
+<li>Some simple languages use dynamic scoping (e.g., shell scripting languages like Perl allow the programmer to choose static or dynamic scoping when defining a variable). So did Common Lisp but later versions of Lisp (e.g. Scheme) are statically scoped.</li>
+</ul>
+<hr  />
+</div></li></ol>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline16" class="outline-2">
+<h2 id="orgheadline16"><span class="section-number-2">2</span> Assignment</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+<i>variable-name = expression</i>
+</p>
+
+<p>
+The = sign should not be confused with equivalence in the mathematical sense. To emphasize the difference, sometimes <b>:= is used</b>.
+<br  />
+The value of the expression is stored in the variable, until a new value is given (with another assignment or by a side-effect).
+<br  />
+In typed languages, typing controls are performed to ensure
+that the expression and the variable have compatible types.
+<br  />
+The language C has a notation for combining assignment
+and increment:
+i++ and ++i change the value of i to the current value plus 1 and return the value of i and i+1 respectively.
+<br  />
+There are also instructions combining assignment and decrement,
+written i&#x2013;, &#x2013;i.
+</p>
+<hr  />
+</div>
+</div>
+<div id="outline-container-orgheadline17" class="outline-2">
+<h2 id="orgheadline17"><span class="section-number-2">3</span> Control Statements</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Programs in imperative languages are sequences of instructions.
+The next instruction that will be executed is the one that
+follows in the text of the program, unless a control statement is used.
+<br  />
+The main control statements in imperative languages are:
+</p>
+<ul class="org-ul">
+<li>selection constructs</li>
+<li>looping constructs</li>
+<li>branching instructions</li>
+</ul>
+<p>
+<br  />
+It has been proved that any sequential algorithm can be coded with just two control statements: selection (if-then-else) and a logically controlled iteration (while).
+<br  />
+Branching instructions(go-to) are therefore superfluous. All languages contain more constructs to facilitate the writing of programs. Moreover, several statements can be grouped together to form a compound statement.
+</p>
+<hr  />
+</div>
+</div>
+<div id="outline-container-orgheadline18" class="outline-2">
+<h2 id="orgheadline18"><span class="section-number-2">4</span> Selection Statements</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Used to choose between two or more execution paths in a program.
+We distinguish two-way selectors and multiple selectors.
+</p>
+<ul class="org-ul">
+<li>Two-way selectors (if-then-else):</li>
+</ul>
+<p>
+Depending on the language, the semantics of nested selectors vary:
+E.g. in <i>Java</i>:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-java">if (sum == 0)
+    if (count == 0)
+    (result = 0);
+else
+   result = 1;
+</pre>
+</div>
+<p>
+<br  />
+The semantics of Java specifies that the else is matched
+with the most recent unpaired then clause (the inner one in this example).
+Since this implicit association may be confusing, some languages
+require the use of specific syntax for nesting selectors.
+</p>
+
+
+<p>
+E.g. in <i>Algol 60</i>:
+</p>
+
+<pre class="example">
+if sum = 0 then
+begin
+   if count = 0 then
+   result := 0
+   else
+   result := 1
+end
+</pre>
+<p>
+<br  />
+or if we want to associate the else to the outer selector:
+<br  />
+</p>
+<pre class="example">
+if sum = 0 then
+begin
+   if count = 0 then
+     result := 0
+end
+else
+   result := 1
+</pre>
+<p>
+<br  />
+Note that to obtain the latter semantics in Java we need
+to use extra syntax too (braces).
+</p>
+<hr  />
+</div>
+</div>
+<div id="outline-container-orgheadline19" class="outline-2">
+<h2 id="orgheadline19"><span class="section-number-2">5</span> Multiple selectors:</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Generalization of two-way selectors.
+<br  />
+E.g. in Java (C, C++) we can write
+</p>
+<pre class="example">
+switch (expression) {
+case constant-expr-1 : statement-1;
+...
+case constant-expr-n : statement-n;
+[default : statement-n+1]
+}
+</pre>
+<p>
+<br  />
+In some languages at the end of a branch the control goes to the instruction after the selector, in others we need an explicit break or return.
+</p>
+
+<hr  />
+</div>
+</div>
+<div id="outline-container-orgheadline22" class="outline-2">
+<h2 id="orgheadline22"><span class="section-number-2">6</span> Iterative Statements (Loops)</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+<i>Iterative constructs cause a statement or sequence of statements (the body of the loop) to be repeated.</i>
+<br  />
+<b>If the test for loop completion is done before the execution of the body we say that it is a pre-test loop, and if it occurs after the body is executed, it is a post-test loop.</b>
+<br  />
+</p>
+
+<p>
+<i>There are two kinds of loops:</i>
+</p>
+</div>
+
+<div id="outline-container-orgheadline20" class="outline-3">
+<h3 id="orgheadline20"><span class="section-number-3">6.1</span> Counter-controlled loops:</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+<br  />
+E.g. the <b>for</b> statement of C, Java:
+<br  />
+</p>
+<pre class="example">
+for (expr-1; expr-2; expr3)
+loop-body
+</pre>
+<p>
+<br  />
+Here <b>expr-1</b> initializes the counter, <b>expr-2</b> is the loop
+control evaluated before each execution of the loop-body,
+and <b>expr-3</b> is executed after each execution of the loop-body.
+</p>
+
+<p>
+E.g.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-java">for (index = 0; index ≤ 10; index++)
+sum = sum + list[index];
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline21" class="outline-3">
+<h3 id="orgheadline21"><span class="section-number-3">6.2</span> Logically-controlled loops:</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+Most imperative languages include both pre-test and posttest
+loop constructs.
+E.g. in C++, Java, there is a <b>while</b> loop and a <b>do</b>.
+</p>
+
+<pre class="example">
+while (expression)
+loop-body
+or
+do
+loop-body
+while (expression)
+</pre>
+<p>
+<br  />
+The while is pre-test (the loop-body is executed as long as the expression evaluates to True) and the do is post-test(the loop-body is executed until the expression evaluates to False).
+<br  />
+Other variants:
+E.g. in <i>Pascal</i> there is a <b>repeat</b> loop:
+</p>
+<pre class="example">
+repeat
+loop-body
+until (expression)
+</pre>
+<p>
+executes the body until the expression evaluates to True.
+</p>
+<hr  />
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline25" class="outline-2">
+<h2 id="orgheadline25"><span class="section-number-2">7</span> Structuring the Program</h2>
+<div class="outline-text-2" id="text-7">
+</div><div id="outline-container-orgheadline23" class="outline-3">
+<h3 id="orgheadline23"><span class="section-number-3">7.1</span> Blocks:</h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+A <i>block</i> is a group of statements, delimited by keywords such as begin and end, or by separators, like { and }.
+<br  />
+A block may contain not only commands, but also declarations (of constants, variables or types). If the language has static scope, these will only be visible inside the block (they are local).
+<br  />
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline24" class="outline-3">
+<h3 id="orgheadline24"><span class="section-number-3">7.2</span> Subprogram:</h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+<i>Subprogram</i> is a generic name for a named block that can be invoked explicitly. In this case the block of statements is executed upon invocation, and the control returns to the
+calling point after the execution of the subprogram. Examples: <i>procedures</i> in Pascal, <i>functions</i> in C, or <i>methods</i> in Java.
+<br  />
+When a subprogram is declared, together with the name we can * associate parameters*. These are called <b>formal parameters</b>, whereas the ones provided when the subprogram is
+invoked are the <b>actual parameters</b>. The values of the actual parameters will be replaced for the formal parameters when the subprogram is invoked. Different languages use different <b>parameter passing mechanisms</b>.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Fernando Ania</p>
+<p class="date">Created: 2016-03-11 Fri 22:41</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

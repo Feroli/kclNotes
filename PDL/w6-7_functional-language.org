@@ -1,0 +1,179 @@
+#+TITLE: Functional Programming: General Concepts
+#+SETUPFILE: ../readTheOrg/theme-readtheorg.setup
+#+STARTUP: entitiespretty.
+\\
+
+* Pre
+
+The predominant language in these notes is Haskell, which is the functional language we are programming with in this course.
+
+\\
+A simple guide to start using Haskell on OS X.
+
+\\
+[[file:haskell.org][Getting Started With Haskell!]]
+
+* Functional Languages
+
+  - Functional Programs consists entirely of functions
+  - A function can be defined in terms of other functions (previously defined by the programmer, in the libraries, or language primitives).
+  - The focus is in what is computed, not how it should be computed.
+  - Modern functional languages are /strongly typed/ (no core dumps!) and have built-in memory management.
+
+** Advantages
+
+   - Shorter programs
+   - easier to understand
+   - easier to design
+   - easier to maintain
+
+** Disadvantages
+
+   - usually slower than imperative languages
+
+
+** Example applications
+
+   - Theorem provers and proof assistants
+   - Natural Language
+   - Music Composition
+   - Graphical interfaces
+   - Expert Systems (Software A.G., Germany)
+   - Telephony (Ericson)
+   - Simulators (Amoco: oil-reservoir simulator)
+
+* Syntax of functional Languages
+
+The notation is inspired by the mathematical definition of functions, using equations.
+
+** Example
+
+We can compute the square of a number using a functions square defined by the function
+
+#+BEGIN_SRC haskell
+square x = x*x
+#+END_SRC
+
+* Execution of programs
+
+The role of the computer is to evaluate and display the results of the expressions that the programmers writes, using the available functions (like a sophisticated calculator)
+
+** Example
+
+   When we type an expression, such as  *square 6* the computer will display its result *36*
+
+* Evaluation
+
+To evaluate *square 6* the computer will use the definition of square and replace this expression by *6\times6*. Then using the predefined * operation, it will find the result *36*.
+
+\\
+The process of evaluating an expression is a simplification process, also called reduction or evaluation process. The goal is to obtain the /value/ or /normal form/ associated to the expression, by a series of reduction steps.
+
+** Example
+
+*square 6 → 6 * 6 → 36*
+*36* is the value or normal form of *square 6*.
+
+* Properties
+
+** Unicity of normal forms:
+
+In (pure) functional languages the value of an expression is uniquely determined by its components, and is independent of the order of reduction.
+
+\\
++ Readability of programs
+
+** Non-termination
+
+Not all reduction sequences lead to a value, some reduction sequences /do not terminate/.
+
+** Example
+
+This creates an infinite list lazily. Therefore we can perform operations on it but if we try to reach the end of the list then it would print all the numbers and never stop.
+#+BEGIN_SRC haskell
+-- intsfrom takes an integer n and returns a list of integers n+1, n+2, etc.
+-- it is computed recursively and appending it to the front of the list
+intsFrom n = n : (intsFrom (n+1))
+
+-- ints initialises instsFrom with 1
+ints = intsFrom 1
+
+-- removeOdd ints removes the odd numbers from a list. Then stores in a new list eventsInts
+eventInts = removeOdd ints
+
+-- take uses the first 10 items of a list (eventInts)
+take 10 eventInts
+#+END_SRC
+
+* Strategies
+
+Although the normal form is unique, the order of reduction is important. The /strategy of evaluation/ defines the reduction sequence that the language implements
+
+** Call-by-name (Normal Order)
+
+Reduce first the application using the definition of the function, and then the argument
+
+** Call-by-value (Application order)
+
+Evaluate first the argument and then the application using the definition of the function.
+
+* Functional Values
+
+Functions are also values! However they cannot be displayed or printed.
+
+** Example
+
+function square takes a value x, and multiplies by its self.
+multimax takes three parameters
+ - no "return" keyword
+ - no parentheses around parameters or conditions
+#+BEGIN_SRC haskell
+square x = x * x
+multiMax a b x = (max a b) * x
+posOrNeg x =
+ if x >= 0
+ then "Positive"
+ else "Negative"
+#+END_SRC
+
+** Types
+
+Function type parameter is defined by the character behind the arrow. For example,
+\\
+f = A -> B
+
+#+BEGIN_SRC haskell
+*':: Int a => a -> a
+#+END_SRC
+** Arithmetic Functions
+
+*** Multiplication
+
+#+BEGIN_EXAMPLE
+(*) Int -> (Int -> Int)
+#+END_EXAMPLE
+
+1. Function takes an Int and returns a function
+2. The returned function takes an Int and returns an Int
+
+
+** Functional Composition
+
+Function first executes the function after the dot.
+
+#+BEGIN_SRC haskell
+printSucc = show . succ
+#+END_SRC
+
+** Polymorphism & Overloading
+
+Polymorphism = a generic type
+#+BEGIN_SRC haskell
+length :: [a] -> Int
+#+END_SRC
+Overloading = giving an object many names
+
+* Type inferring
+
+Haskell will associate values and functions with types even if the programmer has not defined them. However, it is more efficient if the programmer defines the types rather than letting the compiler infer it.
+* Look up a haskell tut for the rest \smiley{}

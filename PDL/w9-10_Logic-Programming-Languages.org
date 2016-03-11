@@ -1,0 +1,10 @@
+#+TITLE: Logic Programming Languages
+#+SETUPFILE: ../readTheOrg/theme-readtheorg.setup
+#+STARTUP: entitiespretty
+
+\\
+* Logic Programming Languages
+
+Predicate = strictly a boolean value function. Therefore it takes one more values and evalutates to true or false. For example, x -> x is even
+
+Function = a box that takes an argument and returns a value. For example, x -> x^2 .

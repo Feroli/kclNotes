@@ -1,0 +1,301 @@
+#+TITLE: Imperative Languages
+#+SETUPFILE: ../readTheOrg/theme-readtheorg.setup
+\\
+* Description of an imperative language
+
+** Informal 
+
+#+BEGIN_QUOTE
+Imperative languages are abstractions of the underlying Von Neumann computer architecture
+
+One of the main components of the computer is its memory, storing instructions and data. The abstraction in a programming language for memory cell are variables.
+#+END_QUOTE
+
+*** Variables
+
+**** */Name/*
+
+Usually a string of characters with some constrains (.e.g maximal length, etc)
+
+\\
+**** */Type/*
+
+Indicates the range of values that are allowed as well as the operations that are available. Some languages are untyped, other are statically typed (e.g., Java, Haskell, ML) or dynamically typed (e.g., Python, Ruby).
+
+\\
+**** */Address/*
+
+The memory address to which the variable is associated (also called l-value)
+
+This association is not simple: the same name may be associated to different addresses in different parts of the program; and in some languages it is possible to associate more than one name to the same address (e.g. variant records in Pascal, EQUIVALENCE statement in Fortran).
+
+\\
+**** */Value/*
+
+The contents of the memory associated to the variable (also called r-value)
+
+\\
+**** */Lifetime/*
+
+The time during which the variable is allocated a specific memory location (between /allocation/ and /deal-location/). We distinguish 4 classes of variables
+
+\\
+***** Static Variables
+
+bound to a memory location before program execution begins and until the end of the execution.
+   - *Advantage*:
+efficiency, since all addressing can be resolved at compile time and there is no need of allocation/deallocation at run time.
+
+   - *Disadvantage*:
+ storage cannot be reused, recursive programs need dynamic variables.
+
+\\
+***** Stack dynamic variables:
+
+The storage allocated when the declaration of the variable is process at run time. E.g. local variables of recursive procedure.
+
+\\
+***** Explicit heap-dynamic variables:
+Nameless memory cells that are allocated and deallocated by program instructions, using pointers. 
+
+E.g. in C++ 
+
+#+BEGIN_CENTER
+#+BEGIN_EXAMPLE
+int *intnode;
+...
+intnode = new int; /*allocates an int cell*/
+...
+delete intnode; /*deallocates the cell
+to which intnode points*/
+#+END_EXAMPLE
+#+END_CENTER
+E.g. in Java objects are explicit heap dynamic, and
+are accessed through reference variables, but there is
+no way to destroy them explicitly: an implicit garbage
+collection is used.
+
+\\
+***** Implicit heap-dynamic variables
+
+are bound to storage only when they are assigned values. E.g. strings
+and arrays in Perl and JavaScript.
+\\
+  - *Advantage*: flexibility.
+  - *Disadvantage*: difficult error detection.
+ 
+\\
+*** Scope
+
+The range of instructions in which the variable is visible (can be used). Local variables are those declared in the block of program that is executed. The variables that are visible but are not local are /global/.
+
+Some languages have static scoping whereas as other have dynamic scoping.
+
+\\
+**** Static Scope
+
+Can be determined before the execution of the program (at compile time). When a variables is referenced, the compiler looks for its declaration in the same block and if there is no declaration then looks in the parent block, etc. If no declaration is found then the compiler detects an error.
+
+E.g. in Pascal
+
+
+#+BEGIN_EXAMPLE Pascal
+program main;
+var x : real;
+procedure P1;
+var x : integer; local variable
+begin
+... x ...
+end;
+procedure P2;
+begin
+... x ... global variable
+end;
+begin main
+... x ... global variable
+end.
+#+END_EXAMPLE
+
+\\
+**** Dynamic Scope 
+
+depends on the calling sequence of subprograms instead of their declaration. In the previous example, with dynamic scope, the reference to x in P2 may refer to the variable in P1 or in main depending on who called P2.
+\\
+*Problems*:  
+    - it is not possible to do static type-checking,
+    - programs are very difficult to understand.
+    - Some simple languages use dynamic scoping (e.g., shell scripting languages like Perl allow the programmer to choose static or dynamic scoping when defining a variable). So did Common Lisp but later versions of Lisp (e.g. Scheme) are statically scoped.
+-------
+* Assignment
+
+/variable-name = expression/
+
+The = sign should not be confused with equivalence in the mathematical sense. To emphasize the difference, sometimes *:= is used*.
+\\
+The value of the expression is stored in the variable, until a new value is given (with another assignment or by a side-effect).
+\\
+In typed languages, typing controls are performed to ensure
+that the expression and the variable have compatible types.
+\\
+The language C has a notation for combining assignment 
+and increment:
+i++ and ++i change the value of i to the current value plus 1 and return the value of i and i+1 respectively.
+\\
+There are also instructions combining assignment and decrement,
+written i--, --i.
+-----
+* Control Statements
+
+Programs in imperative languages are sequences of instructions.
+The next instruction that will be executed is the one that
+follows in the text of the program, unless a control statement is used.
+\\
+The main control statements in imperative languages are:
+  - selection constructs
+  - looping constructs
+  - branching instructions
+\\
+It has been proved that any sequential algorithm can be coded with just two control statements: selection (if-then-else) and a logically controlled iteration (while).
+\\
+Branching instructions(go-to) are therefore superfluous. All languages contain more constructs to facilitate the writing of programs. Moreover, several statements can be grouped together to form a compound statement.
+-----
+* Selection Statements
+
+Used to choose between two or more execution paths in a program.
+We distinguish two-way selectors and multiple selectors.
+    - Two-way selectors (if-then-else):
+Depending on the language, the semantics of nested selectors vary:
+E.g. in /Java/:
+
+#+BEGIN_SRC java
+if (sum == 0)
+    if (count == 0)
+    (result = 0);
+else
+   result = 1;
+#+END_SRC
+\\
+The semantics of Java specifies that the else is matched
+with the most recent unpaired then clause (the inner one in this example).
+Since this implicit association may be confusing, some languages
+require the use of specific syntax for nesting selectors.
+
+
+E.g. in /Algol 60/:
+
+#+BEGIN_EXAMPLE
+if sum = 0 then
+begin
+   if count = 0 then
+   result := 0
+   else
+   result := 1
+end
+#+END_EXAMPLE
+\\
+or if we want to associate the else to the outer selector:
+\\
+#+BEGIN_EXAMPLE
+if sum = 0 then
+begin
+   if count = 0 then
+     result := 0
+end
+else
+   result := 1
+#+END_EXAMPLE
+\\
+Note that to obtain the latter semantics in Java we need
+to use extra syntax too (braces).
+-----
+* Multiple selectors:
+
+Generalization of two-way selectors.
+\\
+E.g. in Java (C, C++) we can write
+#+BEGIN_EXAMPLE
+switch (expression) {
+case constant-expr-1 : statement-1;
+...
+case constant-expr-n : statement-n;
+[default : statement-n+1]
+}
+#+END_EXAMPLE
+\\
+In some languages at the end of a branch the control goes to the instruction after the selector, in others we need an explicit break or return.
+
+-----
+* Iterative Statements (Loops)
+
+/Iterative constructs cause a statement or sequence of statements (the body of the loop) to be repeated./
+\\
+*If the test for loop completion is done before the execution of the body we say that it is a pre-test loop, and if it occurs after the body is executed, it is a post-test loop.*
+\\
+
+/There are two kinds of loops:/
+
+** Counter-controlled loops:
+\\
+E.g. the *for* statement of C, Java:
+\\
+#+BEGIN_EXAMPLE
+for (expr-1; expr-2; expr3)
+loop-body
+#+END_EXAMPLE
+\\
+Here *expr-1* initializes the counter, *expr-2* is the loop
+control evaluated before each execution of the loop-body,
+and *expr-3* is executed after each execution of the loop-body.
+
+E.g.
+
+#+BEGIN_SRC java
+for (index = 0; index ≤ 10; index++)
+sum = sum + list[index];
+#+END_SRC
+
+** Logically-controlled loops:
+
+Most imperative languages include both pre-test and posttest
+loop constructs.
+E.g. in C++, Java, there is a *while* loop and a *do*.
+
+#+BEGIN_EXAMPLE
+while (expression)
+loop-body
+or
+do
+loop-body
+while (expression)
+#+END_EXAMPLE
+\\
+The while is pre-test (the loop-body is executed as long as the expression evaluates to True) and the do is post-test(the loop-body is executed until the expression evaluates to False).
+\\
+Other variants:
+E.g. in /Pascal/ there is a *repeat* loop:
+#+BEGIN_EXAMPLE
+repeat
+loop-body
+until (expression)
+#+END_EXAMPLE
+executes the body until the expression evaluates to True.
+-------
+* Structuring the Program
+
+** Blocks:
+
+A /block/ is a group of statements, delimited by keywords such as begin and end, or by separators, like { and }.
+\\
+A block may contain not only commands, but also declarations (of constants, variables or types). If the language has static scope, these will only be visible inside the block (they are local).
+\\
+** Subprogram:
+
+/Subprogram/ is a generic name for a named block that can be invoked explicitly. In this case the block of statements is executed upon invocation, and the control returns to the
+calling point after the execution of the subprogram. Examples: /procedures/ in Pascal, /functions/ in C, or /methods/ in Java.
+\\
+When a subprogram is declared, together with the name we can * associate parameters*. These are called *formal parameters*, whereas the ones provided when the subprogram is
+invoked are the *actual parameters*. The values of the actual parameters will be replaced for the formal parameters when the subprogram is invoked. Different languages use different *parameter passing mechanisms*.
+
+
+
+

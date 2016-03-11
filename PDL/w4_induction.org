@@ -1,0 +1,163 @@
+#+TITLE: Induction
+#+SETUPFILE: ../readTheOrg/theme-readtheorg.setup
+
+
+\\
+* Principle of mathematical induction
+
+
+For any property P(n) of natural numbers
+(i.e. n ∈ N = {0, 1, 2, . . .}) to prove ∀n ∈ N .P(n) it is sufficient to show:
+\\
+:    - Base: P(0)
+:    - Induction Step:
+:    ∀n ∈* *N.P**(n) ⇒ P(n + 1)
+\\
+
+*Example*:
+We prove that
+
+
+x \\
+\sum (2i -1) = n^2 \\
+i=1
+
+
+for all natural numbers n.
+\\
+/Base/:
+  0 = 0^2
+\\
+
+
+[[file:images/induction.png][induction step]] 
+------
+* Structual Induction
+
+We can adapt the induction principle to the data structure that we want to study, for instance lists. Assume we denote an emput lisy by nil, and a non-empty list by cons(h,l) where h is the head element and l is the tial of the list.
+  To prove that a property P holds for every list, it is sufficient to prove:
+\\
+       : - Base: P(nil)
+       : - Induction Step: P(l) => P(cons(h,l)) for all h,l.
+\\
+More genetally, if we are working with finite labelled trees and we want to prove a property P for thos trees, it is sufficient to show:
+\\
+
+        - Base: P(l) for all leaf nodes l
+        - Induction Step: \\
+          for each tree constructor c (with n >= 1 arguments): \\
+	  \forall t1, ....., tn.P(t1) ^ ...... ^P(tn) => P(c(t1, ..., tm))
+\\
+** Example
+
+To prove that a property P holds for all integer expressions in *SIMP*:
+\\
+  1. Base
+     - Prove P(n) for all n ∈ Z
+     - Prove P(!l) for all locations l.
+
+  2. Induction Step:
+     For all integer expressions E, E' and operatos op:
+     Prove that P(E) and P(E') implies P(E op E').
+\\
+** Example 2
+ 
+Reason to prove a property
+
+    - Base -> 0
+    - Induction (how to get to the next number)
+      n -> n+1 
+\\
+--------
+* Application of the Structural Induction Principle 
+
+We will prove the following property:
+
+/The semantics of *SIMP* guarantees that for any integer expression E appearing in a program working on a memory m if E uses locations that are defined in m then the value of E is defined./
+
+
+In other words:
+For any configuration ~<E · c, r, m>~ where *c* is any arbitrary control stack and *r* is also arbitrary, there is a configuration
+~<c, n · r, m>~ such that ~<E · c, r, mi> →∗ <c, n · r, m>~.
+\\
+Formally, we have to prove ~∀E.P(E)~ where *P* is: ~∀m.locations(E) ∈ dom(m) ⇒
+∃n.∀c.∀r.<E · c, r, m> →∗ <c, n · r, m>~
+\\
+This is proved by induction on the structure of *E*:
+\\
+• Base: If E is a number n or !l then the transitions for
+constants and locations prove P(E).
+\\
+• Induction Step: Assume P(E1) and P(E2) hold, we have
+to prove P(E1opE2).
+
+#+BEGIN_EXAMPLE
+<(E1opE2) · c, r, m> → <E1 · E2 · op · c, r, m>
+→∗ <E2 · op · c, n1 · r, m> for some n1 by P(E1)
+→∗ <op · c, n2 · n1 · r, m> for some n2 by P(E2)
+→∗ <c, n · r, m> where n = n1 op n2.
+#+END_EXAMPLE
+\\
+------
+* Inductive Definition
+
+In addition to using induction to prove properties, we will use it also to define subsets of a given set T. We will write inductive definitions using axioms (representing the base case) and rules (representing the induction step).
+
+
+*Definition*
+  An axiom is an element of T. (an axiom is the base case)
+  A rule is a pair (H, c) where
+
+  - H is a non-empty subset of T, called hypotheses of the rule.
+  - C is an element of T, called the conclusion of the rule.
+
+The subset I of T inductively defined by a collection of axioms *A* and rules *R* consists of those *t ∈ T* such that
+• t ∈ A, or
+• there are t1, . . . , tn ∈ I and a rule (H, c) such that
+  H = {t1, . . . , tn} and t = c.
+\\
+To show that an element t of T is in I it is sufficient to show
+that t is an axiom, or that there is a proof:
+
+[[file:images/axiomProof.png][proof!]]
+
+** Example
+
+axiom = 0 \in Natural Number
+
+#+BEGIN_CENTER
+  n  \in Exp     <- axiom \\
+-----++++++++++++---- \\
+ n+1 \in Exp    <- natural number
+#+END_CENTER
+\\
+
+** Example 2
+
+*** Natural Numbers
+
+#+BEGIN_EXAMPLE
+     Axiom:   0
+
+     Rule:     
+	 n 
+	-+-- 
+	n + 1
+#+END_EXAMPLE
+\\
+*** Evalutation realtion for integer expressions in /SIMP/: 
+
+    *Notation*
+
+~(E,m)⇓n~ maeans the expression *E* evaluates to n in the state m.
+\\
+    *Axiom:*
+\\
+#+BEGIN_EXAMPLE
+(n, m) ⇓ n for all integer numbers n
+(!l, m) ⇓ n if l ∈ dom(m) and m(l) = n
+#+END_EXAMPLE
+
+  *Rule*
+
+[[file:images/rule.png][rule]]

@@ -1,0 +1,134 @@
+#+TITLE: SFUN - Semantics
+#+SETUPFILE: ../readTheOrg/theme-readtheorg.setup
+#+STARTUP: entitiespretty
+
+\\
+
+* Functional Languages: Formal Description
+
+We will give a precise formal description of the behaviour of the functional programming using *transition systems*
+
+*The language that we consider is a small, first-order, functionalprogramming language working on integers and booleans, called SFUN.*
+
+\\
+We will define the syntax of *SFUN*, then give its operational semantics using the Structural Operational Semantics approach.
+
+We can classify functional languages according to the evaluation strategy they implement. There are two main families of functional language:
+
+- Call-by-value
+- Call-by-Name
+* Syntax of SFUN
+
+[[file:images/syntaxSFUN.png][syntax]]
+
+/where/
+
+- n represents an integer number (a constant)
+- b represents a boolean (True, False)
+- x ∈ V
+- op ::= + | − | ∗ | /
+- bop ::= > | < | =
+
+* Operational Semantics
+
+*Referential clarity*
+To know what is program is doing you just need to know what the program has not how the memory is accessed
+
+We will use Big-Step semantics
+ *Big Step semantics* = Provide the result
+
+
+|-------|
+| 4 \Downarrow 4 |
+
+
+arity = number of parameters in a function
+
+*Deterministic* = for each expression there is at most one value
+
+
+
+** Call-by-Value Evaluation  of SFUN
+
+                 4*4
+2+2 \Downarrow 4      xxxx{x|->4} \Downarrow16
+______________________________
+sqaure (2+2) \Downarrow 16
+
+Evaluate argument first, then replace the definition with the computed value
+
+ - Disadvantage
+Can't proceed with operation until it has computed the value
+
+** Call-by-Name Evaluation of SFUN
+
+              (2+2)* (2+2)
+             (x*x{x|-2+2}) \Downarrow16
+-------------------
+ square (2+2) \Downarrow 16
+
+Has to do more work (calls 2+2 twice) but it doesn't need to wait for the value
+
+
+- Disadvantage
+ Usually less efficient
+
+* Type System
+
+square \Downarrow 16  - Links expression with a value
+
+We want associate expression with a type
+
+epsilon = the list of all declarations of a function.
+
+\epsilon = {square :: int -< int}
+
+r |- \epsilon M : r
+
+* Typing SFUN Terms
+
+** Type System Axioms
+
+
+_______
+r|-\epsilon b:bool
+
+** Type System Rules
+
+[[file:images/TypeSystemRules.png][Type System Rules]]
+
+* Type System Programs
+
+A program P in SFUN:
+f1(x1, . . . , xa1) = t1
+
+fk(x1, . . . , xak
+) = tk
+is typeable if for each equation fi(x1, . . . , xai
+) = ti
+, there is a
+type τi and an environment Γi such that Γi `ε fi(x1, . . . , xai
+):τi
+and Γi `ε ti
+:τ
+
+The program *P* of the previous examples:
+
+\\
+f1 = f1 + 1
+f2(x) = 1
+f3(x) = x ∗ x
+
+\\
+is typeable in an environment ε where
+\\
+ε(f1) = int
+ε(f2) = int → int
+ε(f3) = int → int
+
+
+* Logic Programming Languages
+
+Predicate = strictly a boolean value function. Therefore it takes one more values and evalutates to true or false. For example, x -> x is even
+
+Function = a box that takes an argument and returns a value. For example, x -> x^2 .

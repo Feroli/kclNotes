@@ -1,0 +1,294 @@
+#+TITLE: Introduction
+#+SETUPFILE: ../readTheOrg/theme-readtheorg.setup
+
+* Programming Languages and Software engineering 
+
+Programming languages are used in several phases in the software development process: in the implementation phases but also in the desing phase (decomposition into modules)
+
+A desing method is a guideline for producing a desing (e.g.top-down, object-oriented design).
+
+  - Older languages such as Fortran do no support any specific design method
+  - More modern languages were designed to support a specific design method;
+    - Pascal supports top-down programming development and structural programming
+    - Haskell supports functional programming
+    - Java supports object-oriented design
+
+*If the design is not compatible with the language the programming effort increases. When they are compatible, the desing abstractions can easily be mapped into program components.*
+
+
+* Programming Paradigms
+
+/A programming paradigm language may enforce a particlar style of programming./
+
+** Imperative Languages
+
+
+Programs are decomposed into computation steps, which may be grouped to form sub-programs (modular programming).
+
+*Fortran, Pascal, C, Python are imperative*
+
+** Functional Languages
+#
+
+Based on the mathematical theory of functions. The focus is in what should be computed, not how it should be computed.
+
+*Haskell, SML, Caml, Clean, F# are functional*
+
+** Logic Languages 
+
+
+Programs describe a problem rather than finding an algorithmic implementation.
+
+*Prolog*
+
+** Object Oriented
+
+Emphasise the definition of hierarchies of objects. Object-orientation is a feature that can be added to any of the above paradigms (i.e., there are object-oriented imperative languages, object-oriented functional languages, etc.).
+
+*SmallTalk, Ruby, Java, OCaml are object-oriented*
+
+--------
+* Definition of a programming Language
+
+** Syntax
+
+
+Defines the form of program; how expressions, commands, declarations are built and put together to form a program.
+
+
+** Semantics
+
+
+Gives the meaning of programs; how they behave when they are executed.
+
+
+** Implementation
+
+
+a software system that can read a program and execute it in a machine, plus a set of tools (editors, debuggers, etc).
+
+
+
+* Computer Architecture
+  
+
+ - Memory
+ - Register
+ - Processor (a set of machine instructions)
+
+The operating system supplies higher-level promitives than those of the machine language (e.g. input/output operations, file management system, editors). Language implementations are built on top of these. 
+
+
+|--------------------------|
+| Computer Architecture    |
+|--------------------------|
+| user progams             |
+|--------------------------|
+| language implementations |
+|--------------------------|
+| operating system         |
+|--------------------------|
+| machine                  |
+|--------------------------|
+--------
+* Implementing a programming language
+
+** Compiling 
+
+
+Needs to compile program into machine language
+
+The compiler translates the source language into machine language that can be executed directly on the computer. This method provides fast program execution. 
+
+*Main phases of compilation:*
+
+  1. Lexical Analysis
+  2. Syntax Analysis (Parsing)
+  3. Type and Semantics Analysis
+  4. Machine Code Generation
+
+
+The execution of machine code occurs in a process called fetch-execute cycle. Each machine instruction to be executed is moved from the memory, where programs reside, to the processor. The  fetchexecute cycle consists of:
+
+  • Initialize program counter (in a register of the machine)
+  • Repeat forever:
+    – fetch the instruction pointed by the program counter
+    – increment the program counter
+    – decode and execute the instruction
+When all the instructions in the program have been executed
+the control returns to the operating system (of course, in a
+system where more than one program is running the process
+is more complex).
+
+
+** Interpreting
+
+
+interprets programs (i.e. same as compiling but slower and better debug errors)
+
+In this case there is no translation, the program is executed by an interpreter which simulates a machine whose fetchexecute cycle deals with high-level program instructions. The interpreter produces a virtual machine for the language. 
+
+  + Advantage: Easy to implement, easy debugging of programs, better error messages. 
+  - Disadvantage: Slow execution.
+
+Simpler languages, and prototyping languages, are usually interpreted (e.g. LISP, Unix Shell Scripts).
+
+
+** Hybrid Method
+
+
+Combination of compilation and interpretation
+
+Some languages are implemented by translation (compilation)to an intermediate language instead of machine language. This intermediate language is then interpreted.
+
+  + Advantage: Portability.
+ In this way programs can be executed in any machine that has an interpreter for the intermediate language. E.g. Many functional languages are translated to abstract machine code which is then interpreted. In Java, the intermediate form (bytecode) provides portability to any machine that has a bytecode interpreter
+
+
+
+
+------
+* Syntax
+
+
+
+The syntax is given by:
+
+  - *an alphabet*
+the set of characters that can be used
+  - *a set of rules*
+indicating how to form expressions, commands, etc.
+
+
+** Concrete Syntax
+
+
+Describes which chains of characters are well-formed programs
+
+
+** Abstract Syntax
+
+
+Describes the syntax trees, to which a semantics is associated.
+
+
+--------
+* Semantics
+** Static Semantics: Typing
+
+
+The goal is to detect (before the actual execution of the program) programs that are syntactically correct but will give errors during execution. 
+  Example: 1 + ’a’
+
+
+** Dynamic Semantics: or just Semantics
+
+
+Specifies the meaning of programs.
+
+Informal definitions, often given by English explanations in
+language manuals, are often imprecise and incomplete.
+Formal semantics are important for:
+
+ • the implementation of the language: the behaviour of each
+construct is specified, providing an abstraction of the execution
+process which is independent of the machine.
+
+ • programmers: a formal semantics provides tools or techniques
+to reason about programs and prove properties of
+programs.
+
+ • language designers: a formal semantics allows to detect
+ambiguities in the constructs and suggests improvements
+and new constructs (e.g. influence of the study of the λ-
+calculus in the design of functional languages).
+
+However, formal semantics descriptions can be complex, so
+usually only a part of the language is formally defined.
+
+
+** Style of Semantics
+
+
+Operational semantics is very useful for the implementation
+of the language and for proving correctness of compiler optimizations.
+
+Denotational semantics and axiomatic semantics are useful
+to reason and prove properties of programs.
+
+
+*** Denotational Semantics
+
+The meaning of expressions
+(and in general, the meaning of the constructs in the language)
+is given in an abstract, mathematical way (using
+a mathematical model for the language). The semantics
+describes the effect of each construct.
+
+
+*** Axiomatic Semantics
+
+
+Uses axioms and deduction
+rules in a specific logic. Predicates or assertions are given
+before and after each construct, describing the constraints
+on program variables before and after the execution of the
+statement (precondition, postcondition).
+
+
+*** Operational Semantics
+
+
+The meaning of each construct
+is given in terms of computation steps. The behaviour
+of the program during execution can be described
+using a transition system (abstract machine, structural
+operational semantics).
+
+
+_____
+* Operational Transition Semantics Systems
+
+
+
+
+*Definition:* /A transition system is specified by/
+
+- A set Config of Configurations or states
+- A binary realtion → ⊆ Config × Config, called transition relation.
+
+~c->c' means that c and c' are related by ->~
+
+A transition system is /deterministic/ if 
+
+
+#+BEGIN_CENTER 
+~for all c, c1, c2 : c->c1 and c->c2 implies c1 = c2~
+#+END_CENTER
+
+
+
+
+
+*Notation*
+
+c → c' denotes a transition from c to c' (change of state).
+c →∗c' is the reflexive transitive closure of →. In other words, c →∗c' holds iff there is a sequence of transitions:
+
+
+
+#+BEGIN_CENTER
+~c → c1 → . . . → cn = c'
+where n ≥ 0.~
+#+END_CENTER
+
+--------
+* Abstract Machines
+
+#+BEGIN_QUOTE
+
+
+
+*An abstract machine is a transition system that specifies an
+interpreter for a programming language.*
+#+END_QUOTE

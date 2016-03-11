@@ -1,0 +1,174 @@
+#+TITLE: Structural Operational Semantics
+# #+SETUPFILE: ../readTheOrg/theme-readtheorg.setup
+#+INFOJS_OPT: view:t toc:t ltoc:t mouse:underline buttons:0 path:http://thomasf.github.io/solarized-css/org-info.min.js
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://thomasf.github.io/solarized-css/solarized-light.min.css" />
+#+STARTUP: entitiespretty.
+\\
+
+* Intro
+We define the structural operational of *SIMP* as an alternative to the abstract machine. There are two styles of structural semantics:
+
+-  /Semantics/: defined using a reduction relation
+- /Big-step/ semantics: defined using an evaluation relation
+
+* Reduction Semantics for SIMP /Small-Step Semantics/
+\\
+
+We define a trasition system with configuratios <P,s> where *P* is a *SIMP* an *s* is a store (memory) represented by a partial function from locations to integers.
+\\
+*Notation* s[l -> n] denotes the function s' that coincides with s except that it associates to l the value n. More precisely:
+
+\\
+s[l -> n ] (l) = n \\
+s[l -> n ] (l') = s(l') if l \ne l'
+
+[[file:images/TransitionRelations.png][The transition relation is inductively defined by the axioms and rules]]
+
+\\
+
+*Example* 
+\\
+Let /P/ be the program *z:= !x; x:= !y; y:= !z* and /s/ a state such that
+*s(z) = 0, s(x) = 1, s(y) = 2.*
+\\
+There is a sequence of transitions:
+#+BEGIN_EXAMPLE
+<P, s> → <z := 1; (x :=!y; y :=!z), s>
+→ <skip; (x :=!y; y :=!z), s[z 7→ 1]>
+→ <x :=!y; y :=!z, s[z 7→ 1]>
+→ <x := 2; y :=!z, s[z 7→ 1]>
+→ <skip; y :=!z, s[z 7→ 1, x 7→ 2]>
+→ <y :=!z, s[z 7→ 1, x 7→ 2]>
+→ <y := 1, s[z 7→ 1, x 7→ 2]>
+→ <skip, s[z 7→ 1, x 7→ 2, y 7→ 1]>
+#+END_EXAMPLE
+
+** Comparison with the Abstract Machine
+
+1. Each transition here is doing a part of the computation that leads to the result, whereas some the transitions of the machine were only manipulating syntax.
+\\
+2. On the other handm to show that a sequence of reductions is valid we need a proff. [[file:images/SequenceOfTransitions.png][For example:]]
+
+* Evaluation Semantics For SIMP: /Big-Step Semantics/
+
+The previous system is deterministic:
+
+\\
+Given a configuration *<P,s>* there is a unique sequence of transitions from *<P,s>* with maximal length. This is called evaluation for *<P,s>* The evaluation sequence for <P, s> may be finite or infinite.
+
+\\
+*We will classify evaluation sequences in three categories:*
+
+\\
+ - /Terminating/: if the sequence eventually reaches a terminal
+non-blocked configuration (that is, a configuration of
+the form *<n, s>* where /n/ is an integer, or *<b, s>* where /b/ is
+a boolean, or *<skip, s>*).
+
+\\
+ - /Blocked (Stuck)/: if the sequence eventually reaches a blocked
+configuration (that is, a configuration of the form *<!l, s>*
+where* l 6∈ dom(s)*).
+
+\\
+ - /Divergent/: if the sequence is infinite.
+
+** Example
+
+#+BEGIN_EXAMPLE
+<While True do skip, s> is divergent.
+<if !x = 0 then skip else skip, s> is stuck if dom(s) does not contain x.
+<if 4=0 then skip else skip, s> is terminating.
+#+END_EXAMPLE
+
+* Transition System 
+
+The following system defines all the reminating evalutation sequences: It defines by induction the binary relation.
+
+
+*<P, s> →∗ <P', s′>* such that *<P′, s′>* is terminal.
+
+The usual notation for this is *<P, s>* ⇓ *<P′, s′>*
+
+P is the program, s is where it's stored 
+
+In other words:
+#+BEGIN_CENTER
+#+BEGIN_EXAMPLE
+<P, s> ⇓ <P′, s′> if <P, s> →∗ <P′, s′> 
+where <P′, s′> is terminal.
+#+END_EXAMPLE
+#+END_CENTER
+
+[[file:images/otherTransitions.png][Other transitions]]
+
+** Example 
+\\
+ [[example.png][consider the program P]]
+
+
+*** First Part
+
+*Top part*
+
+\\
+The value of *x* (!x) stored in *s* evaluates to *1* and is stored in *s*. 
+The variable z holds !x stored at s, which evaluates to its termination and at s the value of z is equal to 1
+
+!y is stored at s where z ->1, this evaluates to 2 and it is stored at s[z->1]
+x holds !y, stored at s[z->1], evaluates to final termination, s [z->1, x->2]
+
+
+*bottom part* 
+
+\\
+variable z holds !x, var x holds !y. Then they are both stored in s. This evaluates to the termination where at the storage s z associated with 1 and x is associated with 2.
+
+
+* Adding Variable Declarations to SIMP
+
+We can add local declarations to *SIMP* by using a /local/ state in which the scope of a newly created location corresponds precisely with the block where the location is created and initialised (static scope).
+
+For this we will need a stack based implementation of the state.
+
+** Syntax
+
+We extend the syntax of *SIMP* with blocks
+
+#+BEGIN_CENTER
+C::= begin loc x:= E; C end
+#+END_CENTER
+
+** Semantics
+
+We add the following rule to the big-step semantics:
+
+[[file:images/rule.png][rule]]
+
+where
+• l \notin  dom(s′)∪dom(s′′)∪locations(C), that is, l is a fresh name
+
+\\
+• C{x -> l} is the program C where all the occurrences of x are replaced by l (to avoid confusion with other variables of the same name in other parts of the program).
+
+*** Example 
+
+The following program *P* swaps the content of x and y using a local variable z:
+
+#+BEGIN_EXAMPLE
+begin
+  loc z := !x;
+  x := !y;
+  y := !z
+end
+#+END_EXAMPLE
+
+To show that the program *P* is correct:
+
+- First we prove 
+
+<x := !y; y := !l, s[l 7→ s(x)]> ⇓ <skip, s[x 7→ s(y), y 7→ s(x)]>
+
+- Let us call s' the store s[x->s(y), y -> s(x)], then:
+
+[[file:images/rule1.png][rule]]

@@ -1,0 +1,65 @@
+#+TITLE: Tut
+#+SETUPFILE: ../readTheOrg/theme-readtheorg.setup
+#+STARTUP: entitiespretty
+* Question 1
+
+** Show that the replacement does not change what the program is doing.
+/in an expression/
+
+\\
+We look in each case to see if it is safe.
+if it is a reference to memory
+
+*Safe*
+if E = !x
+E' = 1
+
+*Safe* as there is nothing to replace
+E = !y
+E'= !y
+
+
+*safe* as not changing the results
+
+E = E1 op E2
+E' = E1' op E2'
+E = 1 op 2
+
+** Do the replacement in a command
+
+command could be anything
+
+x = 1, [x->2, if x=2]
+
+command can change the value therefore it is not safe
+* Question 2
+
+** Describe the operator ||
+
+c1 || c2
+
+if c1 can execute a transition it will do so. Same for c2 in any order.
+
+deterministic = if it reaches a result, this result must be unique
+
+Non deterministic as we have to cases of the rules. Therefore we can't ensure a unique result.
+
+** What are the possible results?
+
+
+
+          [x=0 then y= !y+1]   \therefore x=0 & y=2.
+                 |
+           C1 || C2
+           |
+       <x=1, s> -> <skip, s[x->1]>
+
+
+if we start with c1 then we get 1
+if we start with c2 then we get x = 1 and y =2. As after doing c1 x becomes 1.
+* Lab
+
+** ex1
+
+quad x = x*x*x*x
+quad = square . square
